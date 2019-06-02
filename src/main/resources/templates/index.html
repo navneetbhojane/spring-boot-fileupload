@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+<script>
+	function submitButton1() {
+		if(validateForm()){
+			startLoading();
+			document.getElementById("form1").submit();
+		}
+	}
+	
+	function submitButton2() {
+		if(validateForm()){
+			startLoading();
+			document.getElementById("form1").submit();
+		}
+	}
+	
+	function submitButton3() {
+		if(validateForm()){
+			startLoading();
+			document.getElementById("form1").submit();
+		}
+	}
+	
+	function validateForm() {
+		  if(document.getElementById("file1").value==""){
+			  alert("Please select File1");
+			  return false;
+		  }
+		  
+		  if(document.getElementById("file2").value==""){
+			  alert("Please select File2");
+			  return false;
+		  }
+		  
+		  return true;
+	}
+	
+	function startLoading() {
+	  var element = document.getElementById("loaderDiv");
+	  element.classList.add("loader");
+	  document.getElementById("myDiv").style.display = "none";
+	}
+	
+</script>
+
+<body>
+
+</br>
+<h1 align="center">Home Page</h1>
+
+<div id="loaderDiv" align="center"></div>
+
+<div id="myDiv">
+	
+	</br>
+	<div th:if="${error}" align="center">
+		<h3 th:style="${'color: red;'}" th:text="${error}"/>
+	</div>
+	<div th:if="${message}" align="center">
+	    <h3 th:style="${'color: red;'}" th:text="${message}"/>
+	</div>
+	<div th:if="${message1}" align="center">
+		<!--  <a th:href="${message1}">Click1</a> -->
+	    <h3 th:style="${'color: blue;'}" th:text="${message1}"/>
+	</div>
+	<div th:if="${message2}" align="center">
+	    <h3 th:style="${'color: blue;'}" th:text="${message2}"/>
+	</div>
+	<div th:if="${message3}" align="center">
+	    <h3 th:style="${'color: blue;'}" th:text="${message3}"/>
+	</div>
+	
+		
+	<form id="form1" method="POST" action="upload" enctype="multipart/form-data">
+		<table align="center" width="40%">
+			<tr>
+				<td width="30%" align="right">File1:</td>
+				<td width="70%"><input type="file" id="file1" name="file1" th:object="${file1}"/></td>
+			</tr>
+			<tr>
+				<td width="30%" align="right">File2:</td>
+				<td width="70%"><input type="file" id="file2" name="file2" th:object="${file2}"/></td>
+			</tr>
+			<tr>
+				<td width="30%" align="right">Select Flag</td>
+				<td width="70%"><input type="checkbox" name="isSelectFlag" th:checked="${isSelectFlag}"/></td>
+			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr align="center">
+				<td colspan="2" align="center">
+					<input type="button" value="Generate Report" onclick="submitButton1()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<!-- 
+					<input type="button" value="Button2" onclick="submitButton2()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="Button3" onclick="submitButton3()" />
+					 -->
+				</td>
+			</tr>
+	    </table>
+	</form>
+	
+</div>
+
+</body>
+</html>
